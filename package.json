@@ -1,0 +1,25 @@
+{
+  "name": "permutation-generator",
+  "version": "0.0.1",
+  "description": "Create permutations use ES6's generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeroboo/nodejs-permutation-generator.git"
+  },
+  "keywords": [
+    "permutation",
+    "generator",
+    "random",
+    "permute"
+  ],
+  "author": "zeroboo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeroboo/nodejs-permutation-generator/issues"
+  },
+  "homepage": "https://github.com/zeroboo/nodejs-permutation-generator#readme"
+}
