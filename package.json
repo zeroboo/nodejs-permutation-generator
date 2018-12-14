@@ -4,7 +4,11 @@
   "description": "Create permutations use ES6's generator",
   "main": "index.js",
   "scripts": {
-    "test": "test.js"
+    "test": "nyc --reporter=html --reporter=text mocha",
+    "test-report": "nyc --reporter=text-lcov mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "start": "node demo.js",
+    "istanbul": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -14,12 +18,20 @@
     "permutation",
     "generator",
     "random",
-    "permute"
+    "permutation stream"
   ],
   "author": "zeroboo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/zeroboo/nodejs-permutation-generator/issues"
   },
-  "homepage": "https://github.com/zeroboo/nodejs-permutation-generator#readme"
+  "homepage": "https://github.com/zeroboo/nodejs-permutation-generator#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "deep-equal-in-any-order": "^1.0.10",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "unordered-array-match": "^1.2.1"
+  }
 }
