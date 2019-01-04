@@ -25,7 +25,7 @@ PermutationGenerator.prototype.getSourceElements = function () {
 PermutationGenerator.prototype[Symbol.iterator] = function* () {
     let heapIndex = 0;
     let heapC = [];
-    let heapSource = this.sourceElements;
+    let heapSource = this.sourceElements.slice();
     this.debug("Iterate: ", heapSource, this.size);
     for (let i = 0; i < this.size; i++) {
         heapC.push(0);

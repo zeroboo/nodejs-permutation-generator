@@ -13,7 +13,7 @@ const common = require("./common");
 var os = require('os');
 
 
-describe('Test generating full permutation as iterator', function(){
+describe.only('Test generating full permutation as iterator', function(){
     it("Generating empty: only 1 empty permutation", function(){
         var generator = new PermutationGenerator([]);
         let count = 0;
@@ -41,6 +41,7 @@ describe('Test generating full permutation as iterator', function(){
     it("Generating 5 from 5 elements: correct amount", function(){
         var generator = new PermutationGenerator([1,2,3,4,5]);
         let it = generator.next();
+        generator.hasDebug = false;
         let count = 0;
         while(!it.done)
         {
@@ -49,7 +50,19 @@ describe('Test generating full permutation as iterator', function(){
         }
         assert.equal(120, count);
     });
-
+    it("Generating 5 from 5 elements: no invalid element", function(){
+        this.timeout(5000);
+        var generator = new PermutationGenerator([1, 2, 3, 4, 5]);
+        generator.hasDebug = false;
+        assert.isFalse(common.isIteratorContainDuplicateResult(generator));
+    });
+    
+    it("Generating 5 from 5 elements: no duplication", function(){
+        this.timeout(5000);
+        var generator = new PermutationGenerator([1, 2, 3, 4, 5]);
+        generator.hasDebug = false;
+        assert.isFalse(common.isIteratorContainDuplicateResult(generator));
+    });
     it("Generating 10 from 10 elements: correct amount", function(){
         var generator = new PermutationGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
         let it = generator.next();
@@ -57,10 +70,6 @@ describe('Test generating full permutation as iterator', function(){
         generator.hasDebug = false;
         while(!it.done)
         {
-            if(count%1000000 == 0)
-            {
-                console.log(count);
-            }
             it = generator.next();
 
             count++;
@@ -69,8 +78,21 @@ describe('Test generating full permutation as iterator', function(){
         assert.equal(3628800, count);
     });
 
+    it("Generating 10 from 10 elements: no invalid element", function(){
+        this.timeout(5000);
+        var generator = new PermutationGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+        generator.hasDebug = false;
+        assert.isFalse(common.isIteratorContainDuplicateResult(generator));
+    });
+
+    it("Generating 10 from 10 elements: no duplication", function(){
+        this.timeout(5000);
+        var generator = new PermutationGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+        generator.hasDebug = false;
+        assert.isFalse(common.isIteratorContainDuplicateResult(generator));
+    });
 });
-describe.only('Test generating full permutation as iterable', function(){
+describe('Test generating full permutation as iterable', function(){
     it("Generating empty: empty result", function(){
         var generator = new PermutationGenerator([]);
         let count = 0;
@@ -103,6 +125,18 @@ describe.only('Test generating full permutation as iterable', function(){
         }
         assert.equal(count, 120);
     });
+    it("Generating 5 from 5 elements: no duplication", function(){
+        this.timeout(5000);
+        var generator = new PermutationGenerator([1, 2, 3, 4, 5]);
+        let counter = new Map();
+        assert.isFalse(common.isIterableContainDuplicateResult(generator, true));
+    });
+
+    it("Generating 5 from 5 elements: all elements valid", function(){
+        this.timeout(5000);
+        var generator = new PermutationGenerator([1, 2, 3, 4, 5]);
+        assert.isFalse(common.isIterableContainInvalidPermutation(generator));
+    });
 
     it("Generating 10 from 10 elements: correct amount", function(){
         var generator = new PermutationGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0,]);
@@ -126,13 +160,6 @@ describe.only('Test generating full permutation as iterable', function(){
         assert.isFalse(common.isIterableContainInvalidPermutation(generator));
     });
 });
-
-describe('Test generating', function(){
-    it("Generating stream and all must share same result", function(){
-        assert.isTrue(false);
-    });
-});
-
 
 describe('Test generating permutation all at once', function(){
     it("Generating empty: empty result", function(){
@@ -177,7 +204,7 @@ describe('Test generating permutation all at once', function(){
         assert.equal(6, counts.length);
     });
 
-    it("Generating 5 from 5 elements: correct amount and no duplicate", function(){
+    it("Generating 5 from 5 elements: correct amount and no duplication", function(){
         this.timeout(30000);
         var generator = new PermutationGenerator([1, 2, 3, 4, 5]);
         var allValues = generator.generateAll();
@@ -329,7 +356,7 @@ describe('Test generating full permutation all at once: ', function(){
             assert.isTrue(e.match);
         });
     });
-    it("Generating 5 elements: correct amount and no duplicate", function(){
+    it("Generating 5 elements: correct amount and no duplication", function(){
         this.timeout(30000);
         var generator = new PermutationGenerator([1, 2, 3, 4, 5]);
         var allValues = generator.generateAll();
@@ -399,7 +426,7 @@ describe('Test generating full permutation all at once: ', function(){
         });
     });
 
-    it("Generating 10 elements: no duplicate", function(){
+    it("Generating 10 elements: no duplication", function(){
         this.timeout(60000);
         var allValues = this.permu10;
 

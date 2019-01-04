@@ -41,8 +41,7 @@ function isIterableContainDuplicateResult(generator)
     for(let permu of generator)
     {
         let cur = counter.get(permu);
-        if(cur != null)
-        {
+        if(cur != null){
             counter.set(permu, cur + 1);
         }
         else{
@@ -51,13 +50,38 @@ function isIterableContainDuplicateResult(generator)
     }
     var dupKey = [];
     counter.forEach((value, key) => {
-        if(value>1)
-        {
+        if(value>1){
             dupKey.push(key);
         }
     });
     console.log("checkIterableGeneratorProduceDuplicateResult.Done", generator.getSourceElements(), dupKey);
     
+    return dupKey.length > 0;
+}
+
+function isIteratorContainDuplicateResult(generator)
+{
+    let counter = new Map();
+    var it = generator.next();
+    while(!it.done)
+    {
+        let cur = counter.get(it.value);
+        if(cur != null){
+            counter.set(it.value, cur + 1);
+        }
+        else{
+            counter.set(it.value, 1);
+        }
+
+        it = generator.next();
+    }
+    var dupKey = [];
+    counter.forEach((value, key) => {
+        if(value>1){
+            dupKey.push(key);
+        }
+    });
+    console.log("isIteratorContainDuplicateResult.Done", generator.getSourceElements(), dupKey);
     return dupKey.length > 0;
 }
 
@@ -75,8 +99,28 @@ function isIterableContainInvalidPermutation(generator, source)
     console.log("isIterableContainInvalidPermutation.Done", generator.getSourceElements(), invalid);
     return invalid.length > 0;
 }
+function isIteratorContainInvalidPermutation(generator, source)
+{
+    var invalid = [];
+    let it = generator.next();
+    while(!it.done)
+    {
+        if(!unorderedArrayMatch(it.value, generator.getSourceElements()))
+        {
+            invalid.push(it.value);
+        }
+        it=generator.next();
+    }
+    
+    console.log("isIteratorContainInvalidPermutation.Done", generator.getSourceElements(), invalid);
+    return invalid.length > 0;
+}
 
 exports.isArrayEqualJSON = isArrayEqualJSON;
 exports.isArrayEqual = isArrayEqual;
 exports.isIterableContainDuplicateResult = isIterableContainDuplicateResult;
 exports.isIterableContainInvalidPermutation = isIterableContainInvalidPermutation;
+
+exports.isIteratorContainDuplicateResult = isIteratorContainDuplicateResult;
+exports.isIteratorContainInvalidPermutation = isIteratorContainInvalidPermutation;
+
