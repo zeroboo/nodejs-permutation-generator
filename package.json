@@ -4,8 +4,8 @@
   "description": "Create permutations use ES6's generator",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha",
-    "test-report": "nyc --reporter=text-lcov mocha",
+    "test": "nyc mocha --recursive",
+    "test-report": "nyc --reporter=text-lcov mocha --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "node demo.js",
     "istanbul": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
@@ -18,7 +18,8 @@
     "permutation",
     "generator",
     "random",
-    "permutation stream"
+    "permutation stream",
+    "combinatorics"
   ],
   "author": "zeroboo",
   "license": "ISC",
@@ -32,6 +33,7 @@
     "deep-equal-in-any-order": "^1.0.10",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
+    "os-utils": "0.0.14",
     "unordered-array-match": "^1.2.1"
   }
 }
