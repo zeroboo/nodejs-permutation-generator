@@ -8,7 +8,8 @@
     "test-report": "nyc --reporter=text-lcov mocha --recursive",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "node demo.js",
-    "istanbul": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "istanbul": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "performance": "node --allow-natives-syntax ./node_modules/mocha/bin/_mocha --reporter mocha-performance ./test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -35,5 +36,8 @@
     "nyc": "^13.1.0",
     "os-utils": "0.0.14",
     "unordered-array-match": "^1.2.1"
+  },
+  "dependencies": {
+    "mocha-performance": "^0.1.1"
   }
 }

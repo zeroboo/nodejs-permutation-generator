@@ -13,8 +13,8 @@ const common = require("./common");
 var os = require('os');
 
 
-describe.only('Test generating full permutation as iterator', function(){
-    it("Generating empty: only 1 empty permutation", function(){
+describe('Test generating full permutation as iterator', function(){
+    it("Generating empty: return 1 empty permutation", function(){
         var generator = new PermutationGenerator([]);
         let count = 0;
         let it = generator.next();
@@ -26,7 +26,7 @@ describe.only('Test generating full permutation as iterator', function(){
         assert.equal(count, 1);
     });
     
-    it("Generating single element: only 1 permutation", function(){
+    it("Generating single element: return 1 permutation", function(){
         var generator = new PermutationGenerator([1]);
         let count = 0;
         let it = generator.next();
@@ -230,7 +230,7 @@ describe('Test generating permutation all at once', function(){
         });
         assert.equal(120, counts.length);
     });
-    it("Generating 5 from 5 elements: qualified elements only", function(){
+    it("Generating 5 from 5 elements: qualified elements", function(){
         this.timeout(30000);
         var source = [1, 2, 3, 4, 5];
         var generator = new PermutationGenerator(source);
@@ -256,7 +256,7 @@ describe('Test generating permutation all at once', function(){
     });
 
     ///----------
-    it("Generating all from 10 elements: qualified elements only", function(){
+    it("Generating all from 10 elements: all qualified elements", function(){
         this.timeout(30000);
         var source = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
         var generator = new PermutationGenerator(source);
@@ -330,7 +330,7 @@ describe('Test generating full permutation all at once: ', function(){
         assert.equal(6, counts.length);
     });
    
-    it("Generating 3 elements: qualified elements only", function(){
+    it("Generating 3 elements: all qualified elements", function(){
         this.timeout(30000);
         var source = [1, 2, 3];
         var size = 3;
@@ -382,7 +382,7 @@ describe('Test generating full permutation all at once: ', function(){
         });
         assert.equal(120, counts.length);
     });
-    it("Generating 5 elements: qualified elements only", function(){
+    it("Generating 5 elements: all qualified elements", function(){
         this.timeout(30000);
         var source = [1, 2, 3, 4, 5];
         var generator = new PermutationGenerator(source);
@@ -408,7 +408,7 @@ describe('Test generating full permutation all at once: ', function(){
     });
 
     ///----------
-    it("Generating 10 elements: qualified elements only", function(){
+    it("Generating 10 elements: all qualified elements", function(){
         this.timeout(30000);
         var allValues = this.permu10;
         var source = this.source10;

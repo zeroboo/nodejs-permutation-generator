@@ -85,7 +85,7 @@ function isIteratorContainDuplicateResult(generator)
     return dupKey.length > 0;
 }
 
-function isIterableContainInvalidPermutation(generator, source)
+function isIterableContainInvalidPermutation(generator)
 {
     var invalid = [];
     for(let permu of generator)
@@ -93,6 +93,37 @@ function isIterableContainInvalidPermutation(generator, source)
         if(!unorderedArrayMatch(permu, generator.getSourceElements()))
         {
             invalid.push(permu);
+        }
+    }
+    
+    console.log("isIterableContainInvalidPermutation.Done", generator.getSourceElements(), invalid);
+    return invalid.length > 0;
+}
+function isIterableContainInvalidPartialPermutation(generator)
+{
+    var invalid = new Map();
+    var validElements = {};
+    for(let validE of generator.getSourceElements())
+    {
+        validElements[validE] = 1;
+    }
+    console.log("isIterableContainInvalidPartialPermutation:", validElements);
+    for(let permu of generator)
+    {
+        if(permu.length > generator.getSourceElements().length)
+        {
+            invalid.set(permu, "longer than source");
+        }
+        else if(permu.length == 0){
+            invalid.set(permu, "empty");
+        }
+        else{
+            permuElement.forEach(x => {
+                if(!validElements.hasOwnProperty(x))
+                {
+                    invalid.set(permu, "invalid element: " + x);
+                }
+            });
         }
     }
     
@@ -124,3 +155,4 @@ exports.isIterableContainInvalidPermutation = isIterableContainInvalidPermutatio
 exports.isIteratorContainDuplicateResult = isIteratorContainDuplicateResult;
 exports.isIteratorContainInvalidPermutation = isIteratorContainInvalidPermutation;
 
+exports.isIterableContainInvalidPartialPermutation = isIterableContainInvalidPartialPermutation;

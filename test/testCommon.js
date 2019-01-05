@@ -11,9 +11,7 @@ const assert = chai.assert;
 const expect = chai.expect; 
 const os = require('os');
 const osUtil = require('os-utils');
-console.log(os.cpus());
-console.log(os.totalmem());
-console.log(os.freemem())
+
 
 describe('Test constructing', function(){
     // before(function() {
@@ -58,5 +56,13 @@ describe('Test constructing', function(){
     });
     it("Construct with empty array: has no error", function(){
         var generator = new PermutationGenerator([]);
+    });
+
+    it("Construct with invalid permutation size: has error", function(){
+        assert.throws(function(){
+            var generator = new PermutationGenerator([1, 2, 3]);
+        }
+        , Error
+        , "");    
     });
 });
